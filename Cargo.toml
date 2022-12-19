@@ -5,5 +5,6 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/evalir/url-builder-rs"
 readme = "README.md"
+description = "A simple URL Builder"
 
 [dependencies]
