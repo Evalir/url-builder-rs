@@ -100,6 +100,8 @@ impl URLBuilder {
             for (param, value) in self.params.iter() {
                 url_params.push_str(format!("{}={}&", param, value).as_str());
             }
+
+            // Remove the trailing `&`
             url_params.pop();
         }
 
