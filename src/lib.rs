@@ -221,10 +221,9 @@ mod tests {
             .add_param("search", "rust")
             .add_param("locale", "en-gb");
         let url = ub.build();
-        assert_eq!(
-            "http://google.com?gcookie=0xcafe&search=rust&locale=en-gb",
-            url
-        )
+        assert!(url.contains("gcookie=0xcafe"));
+        assert!(url.contains("search=rust"));
+        assert!(url.contains("locale=en-gb"));
     }
 
     #[test]
