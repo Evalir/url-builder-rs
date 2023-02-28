@@ -100,6 +100,9 @@ impl URLBuilder {
             for (param, value) in self.params.iter() {
                 url_params.push_str(format!("{}={}&", param, value).as_str());
             }
+
+            // Remove the trailing `&`
+            url_params.pop();
         }
 
         match self.port {
@@ -206,7 +209,22 @@ mod tests {
             .set_host("google.com")
             .add_param("gcookie", "0xcafe");
         let url = ub.build();
-        assert_eq!("http://google.com?gcookie=0xcafe&", url)
+        assert_eq!("http://google.com?gcookie=0xcafe", url)
+    }
+
+    #[test]
+    fn create_url_without_port_and_multiple_params() {
+        let mut ub = URLBuilder::new();
+        ub.set_protocol("http")
+            .set_host("google.com")
+            .add_param("gcookie", "0xcafe")
+            .add_param("search", "rust")
+            .add_param("locale", "en-gb");
+        let url = ub.build();
+        assert_eq!(
+            "http://google.com?gcookie=0xcafe&search=rust&locale=en-gb",
+            url
+        )
     }
 
     #[test]
